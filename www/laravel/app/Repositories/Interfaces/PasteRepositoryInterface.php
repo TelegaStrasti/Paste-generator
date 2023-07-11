@@ -3,21 +3,22 @@
 namespace App\Repositories\Interfaces;
 
 use App\Models\Paste;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 interface PasteRepositoryInterface
 {
     /**
      * Получить пагинируемый список паст.
      *
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return LengthAwarePaginator
      */
-    public function getPaginatedPastes();
+    public function getPaginatedPastes(): LengthAwarePaginator;
 
     /**
-     * Палучить пасту.
+     * Получить пасту.
      *
      * @param Paste $paste
      * @return Paste
      */
-    public function getPaste(Paste $paste);
+    public function getPaste(Paste $paste): Paste;
 }

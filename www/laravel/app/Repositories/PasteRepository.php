@@ -5,9 +5,8 @@ namespace App\Repositories;
 use App\Models\Paste;
 use App\Repositories\Interfaces\PasteRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Carbon;
 
-class PasteRepository implements PasteRepositoryInterface
+final class PasteRepository implements PasteRepositoryInterface
 {
     /**
      * Получить пасту по уникальной ссылку.
@@ -18,7 +17,7 @@ class PasteRepository implements PasteRepositoryInterface
     public function getPaste(string|Paste $url): Paste
     {
         return Paste::where('url', $url)
-            ->where('expires_at', '>', Carbon::now())
+            ->active()
             ->firstOrFail();
     }
 
@@ -29,7 +28,7 @@ class PasteRepository implements PasteRepositoryInterface
      */
     public function getPaginatedPastes(): LengthAwarePaginator
     {
-        return Paste::where('expires_at', '>', Carbon::now())
+        return Paste::active()
             ->paginate(10);
     }
 }

@@ -40,14 +40,3 @@ services:
       MYSQL_DATABASE: petProject
       MYSQL_USER: user
       MYSQL_PASSWORD: password
-
-  mysqldb-test:
-    image: jamielsharief/mysql:latest
-    container_name: app-mysql-test
-    environment:
-      MYSQL_ROOT_PASSWORD: 123456
-      MYSQL_DATABASE: petProject
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-    ports:
-      - 8011:3306

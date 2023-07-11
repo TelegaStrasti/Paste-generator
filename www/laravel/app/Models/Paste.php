@@ -51,4 +51,15 @@ class Paste extends Model
     {
         return $this->hasMany(Complaint::class);
     }
+
+    /**
+     * Возвращает только те запросы, срок жизни которых не истек.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('expires_at', '>', Carbon::now());
+    }
 }

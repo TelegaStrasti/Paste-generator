@@ -6,7 +6,7 @@ use App\Models\Paste;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
-class PasteService
+final class PasteService
 {
     /**
      * Создание новой пасты.

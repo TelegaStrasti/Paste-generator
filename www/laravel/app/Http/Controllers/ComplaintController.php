@@ -6,7 +6,7 @@ use App\Models\Complaint;
 use App\Models\Paste;
 use Illuminate\Http\Request;
 
-class ComplaintController extends Controller
+final class ComplaintController extends Controller
 {
 
     //ЖАЛОБЫ

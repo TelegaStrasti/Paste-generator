@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\paste\PasteCreateRequest;
+use App\Http\Requests\Paste\PasteCreateRequest;
 use App\Models\User;
 use App\Repositories\Interfaces\PasteRepositoryInterface;
 use App\Services\PasteService;
 use Illuminate\Contracts\View\View;
 
-class PasteController extends Controller
+final class PasteController extends Controller
 {
     /**
      * @var PasteService
