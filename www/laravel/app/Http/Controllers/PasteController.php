@@ -65,6 +65,8 @@ final class PasteController extends Controller
     {
         $paste = $this->pasteRepository->getPaste($url);
 
+        $this->pasteService->show($paste);
+
         return view('paste.show', compact('paste'));
     }
 

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * App\Models\Paste
@@ -21,7 +21,6 @@ use Illuminate\Support\Str;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
-
 class Paste extends Model
 {
     use HasFactory;
@@ -55,11 +54,35 @@ class Paste extends Model
     /**
      * Возвращает только те запросы, срок жизни которых не истек.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeActive($query)
     {
-        return $query->where('expires_at', '>', Carbon::now());
+        return $query->where('expires_at', '>', Carbon::now())
+            ->orWhereNull('expires_at');
+    }
+
+    /**
+
+    * Проверяет доступ пользователя к пасте.
+    * @param string|null $url
+    * @return bool
+     */
+
+    public function hasAccess($url = null)
+    {
+        $user = Auth::user();
+        $access = $this->access;
+
+        if (
+            $access === 'public' ||
+            ($user && $access === 'private' && $this->user_id === $user->id) ||
+            ($access === 'unlisted' && $this->url === $url)
+        ) {
+            return true;
+        }
+
+        return false;
     }
 }
