@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Repositories\Interfaces\PasteRepositoryInterface;
 use App\Services\PasteService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 
 final class PasteController extends Controller
 {
@@ -46,13 +47,15 @@ final class PasteController extends Controller
      * Создание пасты
      *
      * @param PasteCreateRequest $request
-     * @return void
+     * @return View
      */
-    public function store(PasteCreateRequest $request): void
+    public function store(PasteCreateRequest $request): View
     {
         $data = $request->validated();
 
         $this->pasteService->store($data);
+
+        return view('paste.create');
     }
 
     /**
@@ -68,16 +71,5 @@ final class PasteController extends Controller
         $this->pasteService->show($paste);
 
         return view('paste.show', compact('paste'));
-    }
-
-    /**
-     *  Список паст юзера.
-     *
-     * @param User $user
-     * @return void
-     */
-    public function index(User $user): void
-    {
-
     }
 }

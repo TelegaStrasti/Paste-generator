@@ -1,4 +1,6 @@
-<form method="POST" action="{{ route('pastes.store') }}">
+@extends('layouts.main')
+@section('content')
+<form method="POST" action="{{ route('pastes_store') }}">
     @csrf
     <div style="display: block">
         <label for="title">Название:</label>
@@ -49,3 +51,4 @@
         padding: 20px;
     }
 </style>
+@endsection
