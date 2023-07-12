@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\PasteAccesses;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -64,25 +65,17 @@ class Paste extends Model
     }
 
     /**
-
     * Проверяет доступ пользователя к пасте.
     * @param string|null $url
     * @return bool
      */
-
     public function hasAccess($url = null)
     {
         $user = Auth::user();
         $access = $this->access;
 
-        if (
-            $access === 'public' ||
-            ($user && $access === 'private' && $this->user_id === $user->id) ||
-            ($access === 'unlisted' && $this->url === $url)
-        ) {
-            return true;
-        }
-
-        return false;
+        return $access === PasteAccesses::PUBLIC->value
+            || ($user && $access === PasteAccesses::PRIVATE->value && $this->user_id === $user->id)
+            || ($access === PasteAccesses::UNLISTED->value && $this->url === $url);
     }
 }

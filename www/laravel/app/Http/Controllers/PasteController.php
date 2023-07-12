@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Paste\PasteCreateRequest;
-use App\Models\User;
 use App\Repositories\Interfaces\PasteRepositoryInterface;
 use App\Services\PasteService;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Auth;
 
 final class PasteController extends Controller
 {
@@ -68,7 +66,7 @@ final class PasteController extends Controller
     {
         $paste = $this->pasteRepository->getPaste($url);
 
-        $this->pasteService->show($paste);
+        $this->pasteService->hasAccess($paste);
 
         return view('paste.show', compact('paste'));
     }

@@ -35,9 +35,15 @@ final class PasteService
 
         Paste::create($newPasteData);
     }
-    public function show($paste){
-        if (!$paste->hasAccess($paste->url)) {
-            abort(403, 'У вас нет доступа к этой пасте');
-        }
+
+    /**
+     * Проверяет, имеет ли пользователь доступ к пасте.
+     *
+     * @param  $paste
+     * @return bool
+     */
+    public function hasAccess($paste): bool
+    {
+        return $paste->hasAccess($paste->url);
     }
 }

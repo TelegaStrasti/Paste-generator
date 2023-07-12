@@ -6,9 +6,15 @@ use App\Models\Paste;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class PasteComposer
+final class PasteComposer
 {
-    public function compose(View $view)
+    /**
+     * Возвращает данные для блоков с пастами.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function compose(View $view):void
     {
         $user = Auth::id();
 

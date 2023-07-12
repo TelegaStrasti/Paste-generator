@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\GoogleAuthController;
+use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\PasteController;
 use App\Http\Controllers\Auth\UserAuthController;
 use App\Http\Controllers\UserController;
@@ -35,14 +36,16 @@ Route::prefix('register')->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::post('/complaints', [ComplaintController::class, 'makeComplaint'])->name('complaints_make');
+
     Route::prefix('user')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('user_index');
     });
 });
-
 
 Route::prefix('pastes')->group(function () {
     Route::get('create', [PasteController::class, 'create'])->name('pastes_create');
     Route::post('/', [PasteController::class, 'store'])->name('pastes_store');
     Route::get('my-awesome-pastebin.tld/{url}', [PasteController::class, 'show'])->name('pastes_show');
 });
+

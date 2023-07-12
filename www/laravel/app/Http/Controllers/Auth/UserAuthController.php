@@ -40,13 +40,15 @@ final class UserAuthController extends Controller
      * Логика авторизации
      *
      * @param LoginRequest $request
-     * @return RedirectResponse|Application|Redirector
+     * @return string
      */
     public function login(LoginRequest $request)
     {
         $data = $request->validated();
 
-        return $this->userAuthService->login($data);
+        $this->userAuthService->login($data);
+
+        return redirect('/');
     }
 
     /**

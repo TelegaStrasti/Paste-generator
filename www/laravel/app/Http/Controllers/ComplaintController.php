@@ -2,22 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Complaint;
-use App\Models\Paste;
-use Illuminate\Http\Request;
+use App\Http\Requests\Paste\ComplaintsRequest;
+use App\Services\ComplaintService;
 
 final class ComplaintController extends Controller
 {
+    protected ComplaintService $complaintService;
 
-    //ЖАЛОБЫ
-    public function create(Paste $paste)
+    public function __construct(ComplaintService $complaintService)
     {
-
+        $this->complaintService = $complaintService;
     }
 
-    public function store(Request $request)
+    /**
+     * Обрабатывает формы жалобы.
+     *
+     * @param ComplaintsRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function makeComplaint(ComplaintsRequest $request): \Illuminate\Http\RedirectResponse
     {
+        $data = $request->validated();
 
+        $this->complaintService->makeComplaint($data);
+
+        return redirect()->back();
     }
-
 }
