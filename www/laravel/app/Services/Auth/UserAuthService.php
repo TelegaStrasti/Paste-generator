@@ -26,12 +26,13 @@ final class UserAuthService
      * Регистрация пользователя
      *
      * @param $data
-     * @return void
+     * @return User
      */
-    public function register($data):void{
+    public function register($data):User{
 
         $data['password'] = Hash::make($data['password']);
 
-        User::create($data);
+        return User::create($data);
+
     }
 }

@@ -10,11 +10,11 @@ final class ComplaintService
      * Создает жалобу.
      *
      * @param array $data
-     * @return void
+     * @return Complaint
      */
-    public function makeComplaint(array $data): void
+    public function makeComplaint(array $data): Complaint
     {
-        Complaint::create([
+        return Complaint::create([
             'user_id' => auth()->id(),
             'paste_id' => $data['paste_id'],
             'text' => $data['text'],

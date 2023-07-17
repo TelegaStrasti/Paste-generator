@@ -13,9 +13,9 @@ final class PasteService
      * Создание новой пасты.
      *
      * @param array $data
-     * @return void
+     * @return Paste
      */
-    public function store(array $data): void
+    public function store(array $data): Paste
     {
         $expiresAt = null;
 
@@ -33,7 +33,7 @@ final class PasteService
             'language' => $data['language'],
         ];
 
-        Paste::create($newPasteData);
+        return Paste::create($newPasteData);
     }
 
     /**
