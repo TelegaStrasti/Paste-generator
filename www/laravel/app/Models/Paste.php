@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Orchid\Screen\AsSource;
 
 /**
  * App\Models\Paste
@@ -25,6 +26,7 @@ use Illuminate\Support\Facades\Auth;
 class Paste extends Model
 {
     use HasFactory;
+    use asSource;
 
     protected $fillable = [
         'title',

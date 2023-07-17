@@ -37,13 +37,13 @@ final class PasteService
     }
 
     /**
-     * Проверяет, имеет ли пользователь доступ к пасте.
+     * Удаление пасты
      *
-     * @param  $paste
-     * @return bool
+     * @param Paste $paste
+     * @return void
      */
-    public function hasAccess($paste): bool
+    public function destroy(Paste $paste)
     {
-        return $paste->hasAccess($paste->url);
+        $paste->delete();
     }
 }

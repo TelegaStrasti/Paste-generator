@@ -21,7 +21,7 @@ final class UserController extends Controller
      */
     public function index(): View
     {
-        $userPastes = $this->userRepository->index();
+        $userPastes = $this->userRepository->getUserPastes();
         return view('user.user_pastes', compact('userPastes'));
     }
 }

@@ -46,6 +46,7 @@ Route::middleware(['auth'])->group(function () {
 Route::prefix('pastes')->group(function () {
     Route::get('create', [PasteController::class, 'create'])->name('pastes_create');
     Route::post('/', [PasteController::class, 'store'])->name('pastes_store');
-    Route::get('my-awesome-pastebin.tld/{url}', [PasteController::class, 'show'])->name('pastes_show');
 });
+
+Route::get('my-awesome-pastebin.tld/{url}', [PasteController::class, 'show'])->name('pastes_show');
 

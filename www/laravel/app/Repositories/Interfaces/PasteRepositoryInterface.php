@@ -15,10 +15,10 @@ interface PasteRepositoryInterface
     public function getPaginatedPastes(): LengthAwarePaginator;
 
     /**
-     * Получить пасту.
+     * Получить пасту по url.
      *
-     * @param Paste $paste
+     * @param string $url
      * @return Paste
      */
-    public function getPaste(Paste $paste): Paste;
+    public function getPaste(string $url): Paste;
 }

@@ -2,12 +2,18 @@
 
 namespace App\Http\Views\Composers;
 
-use App\Models\Paste;
-use Illuminate\Support\Facades\Auth;
+use App\Repositories\Interfaces\PasteBlocksRepositoryInterface;
 use Illuminate\View\View;
 
 final class PasteComposer
 {
+    protected PasteBlocksRepositoryInterface $pasteBlocksRepository;
+
+    public function __construct(PasteBlocksRepositoryInterface $pasteBlocksRepository)
+    {
+        $this->pasteBlocksRepository = $pasteBlocksRepository;
+    }
+
     /**
      * Возвращает данные для блоков с пастами.
      *
@@ -16,11 +22,9 @@ final class PasteComposer
      */
     public function compose(View $view):void
     {
-        $user = Auth::id();
+        $latestPastes = $this->pasteBlocksRepository->getLatestPastes();
 
-        $latestPastes = Paste::latest()->take(10)->get();
-
-        $userPastes = Paste::latest()->where('user_id', $user)->take(10)->get();
+        $userPastes = $this->pasteBlocksRepository->getLatestUserPastes();
 
         $view->with('latestPastes', $latestPastes)
             ->with('userPastes', $userPastes);

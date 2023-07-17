@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Enums\PasteAccesses;
 use App\Models\Paste;
 use App\Repositories\Interfaces\PasteRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -29,6 +30,9 @@ final class PasteRepository implements PasteRepositoryInterface
     public function getPaginatedPastes(): LengthAwarePaginator
     {
         return Paste::active()
+            ->with('user')
+            ->join('users', 'users.id', '=', 'pastes.user_id')
+            ->select(['pastes.url', 'pastes.text', 'pastes.title', 'users.name as user_name', 'pastes.created_at', 'pastes.updated_at'])
             ->paginate(10);
     }
 }
