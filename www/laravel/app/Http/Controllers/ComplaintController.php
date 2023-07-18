@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Paste\ComplaintsRequest;
 use App\Services\ComplaintService;
+use Illuminate\Http\RedirectResponse;
 
 final class ComplaintController extends Controller
 {
@@ -18,9 +19,9 @@ final class ComplaintController extends Controller
      * Обрабатывает формы жалобы.
      *
      * @param ComplaintsRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function makeComplaint(ComplaintsRequest $request): \Illuminate\Http\RedirectResponse
+    public function makeComplaint(ComplaintsRequest $request): RedirectResponse
     {
         $data = $request->validated();
 

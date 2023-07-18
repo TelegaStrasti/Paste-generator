@@ -30,7 +30,8 @@ final class UserRepository implements UserRepositoryInterface
      */
     public function index(): ?Paginator
     {
-        return \Orchid\Platform\Models\User::with('roles')
+        return \Orchid\Platform\Models\User::query()
+            ->with('roles')
             ->filters(UserFiltersLayout::class)
             ->defaultSort('id', 'desc')
             ->where('is_baned', 0)
@@ -42,7 +43,7 @@ final class UserRepository implements UserRepositoryInterface
      * @param int $id
      * @return User|null
      */
-    public function getUser($id): ?User
+    public function getUser(int $id): ?User
     {
         return User::findOrFail($id);
     }

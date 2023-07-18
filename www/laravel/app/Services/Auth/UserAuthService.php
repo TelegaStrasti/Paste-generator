@@ -10,10 +10,10 @@ final class UserAuthService
     /**
      * Авторизация пользователя
      *
-     * @param $data
+     * @param object $data
      * @return string|null
      */
-    public function login($data):?string
+    public function login(object $data):?string
     {
         $accessToken = null;
         if (auth()->attempt(['name' => $data['name'], 'password' => $data['password']])) {
@@ -25,10 +25,10 @@ final class UserAuthService
     /**
      * Регистрация пользователя
      *
-     * @param $data
+     * @param object $data
      * @return User
      */
-    public function register($data):User{
+    public function register(object $data):User{
 
         $data['password'] = Hash::make($data['password']);
 

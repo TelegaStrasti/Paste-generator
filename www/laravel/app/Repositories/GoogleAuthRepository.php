@@ -4,6 +4,8 @@ namespace App\Repositories;
 
 use App\Models\User;
 use App\Repositories\Interfaces\GoogleAuthRepositoryInterface;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Laravel\Socialite\Facades\Socialite;
 
 final class GoogleAuthRepository implements GoogleAuthRepositoryInterface
@@ -12,11 +14,13 @@ final class GoogleAuthRepository implements GoogleAuthRepositoryInterface
      * Получить юзера по Google ID.
      *
      * @param object $user
-     * @return User|null
+     * @return Builder|Model
      */
-    public function findUser($user): ?User
+    public function findUser(object $user): Builder|Model
     {
-        return User::where('google_id', $user->id)->first();
+        return User::query()
+            ->where('google_id', $user->id)
+            ->first();
     }
 
     /**

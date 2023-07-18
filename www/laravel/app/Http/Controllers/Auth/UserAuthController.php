@@ -9,7 +9,7 @@ use App\Services\Auth\UserAuthService;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
-use Illuminate\View\View;
+use Illuminate\Contracts\View\View;
 
 final class UserAuthController extends Controller
 {
@@ -40,9 +40,9 @@ final class UserAuthController extends Controller
      * Логика авторизации
      *
      * @param LoginRequest $request
-     * @return string
+     * @return Application|Redirector|RedirectResponse
      */
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): Application|Redirector|RedirectResponse
     {
         $data = $request->validated();
 

@@ -36,7 +36,7 @@ final class PasteController extends Controller
      * Создание пасты
      *
      * @param PasteCreateRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function store(PasteCreateRequest $request):JsonResponse
     {
@@ -51,7 +51,7 @@ final class PasteController extends Controller
      * Детальная страница пасты.
      *
      * @param string $url
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function show(string $url):JsonResponse
     {

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 use Orchid\Screen\AsSource;
 
 /**
@@ -13,10 +15,10 @@ use Orchid\Screen\AsSource;
  * @property string $text
  * @property int $user_id
  * @property int $paste_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Paste $paste
- * @property-read \App\Models\User $user
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Paste $paste
+ * @property-read User $user
  */
 
 class Complaint extends Model
@@ -31,9 +33,9 @@ class Complaint extends Model
     ];
 
     /**
-     * Получить автора жалобы.
+     * Получить пользователя
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -41,7 +43,7 @@ class Complaint extends Model
     /**
      * Получить пасту по жалобе.
      */
-    public function paste()
+    public function paste(): BelongsTo
     {
         return $this->belongsTo(Paste::class);
     }

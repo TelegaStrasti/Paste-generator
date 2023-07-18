@@ -3,8 +3,11 @@
 namespace App\Models;
 
 use App\Enums\PasteAccesses;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Orchid\Screen\AsSource;
@@ -18,10 +21,10 @@ use Orchid\Screen\AsSource;
  * @property string $url
  * @property string $access
  * @property string $language
- * @property \Illuminate\Support\Carbon|null $expires_at
+ * @property Carbon|null $expires_at
  * @property int $user_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  */
 class Paste extends Model
 {
@@ -41,7 +44,7 @@ class Paste extends Model
     /**
      * Получить юзера по пасте.
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -49,7 +52,7 @@ class Paste extends Model
     /**
      * Получить жалобы на пасту.
      */
-    public function complaints()
+    public function complaints(): HasMany
     {
         return $this->hasMany(Complaint::class);
     }
@@ -57,10 +60,11 @@ class Paste extends Model
     /**
      * Возвращает только те запросы, срок жизни которых не истек.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param Builder<Paste> $query
+     * @return Builder<Paste>
+     * @phpstan-ignore-next-line
      */
-    public function scopeActive($query)
+    public function scopeActive(Builder $query): Builder
     {
         return $query->where('expires_at', '>', Carbon::now())
             ->orWhereNull('expires_at');
@@ -71,13 +75,13 @@ class Paste extends Model
     * @param string|null $url
     * @return bool
      */
-    public function hasAccess($url = null)
+    public function hasAccess(string $url = null): bool
     {
-        $user = Auth::user();
+        $user = Auth::id();
         $access = $this->access;
 
         return $access === PasteAccesses::PUBLIC->value
-            || ($user && $access === PasteAccesses::PRIVATE->value && $this->user_id === $user->id)
+            || ($user && $access === PasteAccesses::PRIVATE->value && $this->user_id === $user)
             || ($access === PasteAccesses::UNLISTED->value && $this->url === $url);
     }
 }

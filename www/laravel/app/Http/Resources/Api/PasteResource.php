@@ -5,6 +5,17 @@ namespace App\Http\Resources\Api;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @property mixed $updated_at
+ * @property mixed $created_at
+ * @property mixed $language
+ * @property mixed $user_id
+ * @property mixed $expires_at
+ * @property mixed $access
+ * @property mixed $url
+ * @property mixed $text
+ * @property mixed $title
+ */
 class PasteResource extends JsonResource
 {
     /**

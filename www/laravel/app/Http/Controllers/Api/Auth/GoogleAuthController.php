@@ -8,7 +8,6 @@ use App\Services\Auth\GoogleAuthService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
-use Laravel\Socialite\Facades\Socialite;
 
 final class GoogleAuthController extends Controller
 {
@@ -42,9 +41,7 @@ final class GoogleAuthController extends Controller
      */
     public function handleGoogleCallback(): Application|RedirectResponse|Redirector|null
     {
-        $googleUser = Socialite::driver('google')->stateless()->user();
-
-        $user = $this->googleAuthRepository->getGoogleUser($googleUser);
+        $user = $this->googleAuthRepository->getGoogleUser();
 
         $findUser = $this->googleAuthRepository->findUser($user);
 

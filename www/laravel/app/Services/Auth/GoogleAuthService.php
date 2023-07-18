@@ -16,14 +16,13 @@ final class GoogleAuthService
      *
      * @return Application|RedirectResponse|Redirector|null
      */
-    public function handleGoogleCallback($findUser, $user): Application|RedirectResponse|Redirector|null
+    public function handleGoogleCallback(): Application|RedirectResponse|Redirector|null
     {
         $user = Socialite::driver('google')->user();
         $findUser = User::where('google_id', $user->id)->first();
 
         if ($findUser) {
             Auth::login($findUser);
-            return redirect('/');
         } else {
             $newUser = User::create([
                 'name' => $user->name,
@@ -32,7 +31,7 @@ final class GoogleAuthService
                 'password' => encrypt('123456dummy')
             ]);
             Auth::login($newUser);
-            return redirect('/');
         }
+        return redirect('/');
     }
 }

@@ -4,6 +4,8 @@ namespace App\Orchid\Screens;
 
 use App\Orchid\Layouts\Complaints\ComplaintsListLayout;
 use App\Repositories\Interfaces\ComplaintsRepositoryInterface;
+use Orchid\Screen\Action;
+use Orchid\Screen\Layout;
 use Orchid\Screen\Screen;
 
 class ComplaintsScreen extends Screen
@@ -41,7 +43,7 @@ class ComplaintsScreen extends Screen
     /**
      * The screen's action buttons.
      *
-     * @return \Orchid\Screen\Action[]
+     * @return Action[]
      */
     public function commandBar(): iterable
     {
@@ -51,7 +53,7 @@ class ComplaintsScreen extends Screen
     /**
      * The screen's layout elements.
      *
-     * @return \Orchid\Screen\Layout[]|string[]
+     * @return Layout[]|string[]
      */
     public function layout(): iterable
     {

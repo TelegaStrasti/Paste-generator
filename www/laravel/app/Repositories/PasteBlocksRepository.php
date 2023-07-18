@@ -17,7 +17,9 @@ class PasteBlocksRepository implements PasteBlocksRepositoryInterface
      */
     public function getLatestPastes(): Collection
     {
-        return Paste::latest()
+        return Paste::query()
+            ->latest()
+            ->active()
             ->take(10)
             ->get();
     }
@@ -30,7 +32,9 @@ class PasteBlocksRepository implements PasteBlocksRepositoryInterface
     public function getLatestUserPastes(): Collection
     {
         $user = Auth::id();
-        return Paste::latest()
+        return Paste::query()
+            ->latest()
+            ->active()
             ->where('user_id', $user)
             ->take(10)
             ->get();

@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Interfaces;
 
-use App\Models\Paste;
 use Illuminate\Database\Eloquent\Collection;
 
 interface PasteBlocksRepositoryInterface
@@ -10,14 +9,14 @@ interface PasteBlocksRepositoryInterface
     /**
      * Получить последние пасты
      *
-     * @return Paste
+     * @return Collection
      */
     public function getLatestPastes():Collection;
 
     /**
      * Получить последние текущего пасты юзера
      *
-     * @return Paste
+     * @return Collection
      */
     public function getLatestUserPastes():Collection;
 }

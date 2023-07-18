@@ -5,6 +5,9 @@ namespace App\Http\Resources\Api\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @property mixed $name
+ */
 final class AuthResource extends JsonResource
 {
     /**

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Orchid\Filters\Types\Like;
@@ -11,6 +12,9 @@ use Orchid\Filters\Types\WhereDateStartEnd;
 use Orchid\Platform\Models\User as Authenticatable;
 use Orchid\Screen\AsSource;
 
+/**
+ * @property mixed|true $is_baned
+ */
 class User extends Authenticatable
 {
     use AsSource, HasApiTokens, HasFactory, Notifiable;
@@ -76,7 +80,7 @@ class User extends Authenticatable
     /**
      * Получить пасты юзера.
      */
-    public function pastes()
+    public function pastes(): HasMany
     {
         return $this->hasMany(Paste::class);
     }
@@ -84,7 +88,7 @@ class User extends Authenticatable
     /**
      * Получить жалобы юзера.
      */
-    public function complaints()
+    public function complaints(): HasMany
     {
         return $this->hasMany(Complaint::class);
     }

@@ -6,7 +6,6 @@ use App\Http\Requests\Paste\PasteCreateRequest;
 use App\Repositories\Interfaces\PasteRepositoryInterface;
 use App\Services\PasteService;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Auth;
 
 final class PasteController extends Controller
 {
