@@ -9,13 +9,10 @@ use Illuminate\Http\JsonResponse;
 
 final class UserController extends Controller
 {
-    protected UserRepositoryInterface $userRepository;
-
-    public function __construct(UserRepositoryInterface $userRepository)
-    {
-        $this->userRepository = $userRepository;
-    }
-
+    public function __construct(
+        protected UserRepositoryInterface $userRepository
+    )
+    {}
 
     /**
      * Возвращает пагинируемый список паст пользователя

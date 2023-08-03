@@ -16,7 +16,8 @@ interface PasteBlocksRepositoryInterface
     /**
      * Получить последние текущего пасты юзера
      *
+     * @param int $userId
      * @return Collection
      */
-    public function getLatestUserPastes():Collection;
+    public function getLatestUserPastes(int $userId):Collection;
 }

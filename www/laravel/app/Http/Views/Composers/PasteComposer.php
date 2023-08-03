@@ -24,7 +24,7 @@ final class PasteComposer
     {
         $latestPastes = $this->pasteBlocksRepository->getLatestPastes();
 
-        $userPastes = $this->pasteBlocksRepository->getLatestUserPastes();
+        $userPastes = $this->pasteBlocksRepository->getLatestUserPastes(auth()->id());
 
         $view->with('latestPastes', $latestPastes)
             ->with('userPastes', $userPastes);

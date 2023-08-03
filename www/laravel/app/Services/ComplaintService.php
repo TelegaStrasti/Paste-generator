@@ -2,22 +2,25 @@
 
 namespace App\Services;
 
+use App\DTO\ComplaintDTO;
 use App\Models\Complaint;
+use App\Services\interfaces\ComplaintServiceInterface;
 
-final class ComplaintService
+final class ComplaintService implements ComplaintServiceInterface
 {
     /**
      * Создает жалобу.
      *
-     * @param array $data
+     * @param ComplaintDTO $complaintDTO
+     * @param int $userId
      * @return Complaint
      */
-    public function makeComplaint(array $data): Complaint
+    public function makeComplaint(ComplaintDTO $complaintDTO, int $userId): Complaint
     {
         return Complaint::create([
-            'user_id' => auth()->id(),
-            'paste_id' => $data['paste_id'],
-            'text' => $data['text'],
+            'user_id' => $userId,
+            'paste_id' => $complaintDTO->getPasteId(),
+            'text' => $complaintDTO->getText(),
         ]);
     }
 }

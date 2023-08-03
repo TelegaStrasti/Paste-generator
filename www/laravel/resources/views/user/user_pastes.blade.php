@@ -8,7 +8,7 @@
     @foreach($userPastes as $paste)
         <div style="margin: 20px 0 20px 0;">
             <span>{{ $paste->title}}</span>
-            <a href="{{ route('pastes_show', ['url' => $paste->url])}}"> my-awesome-pastebin.tld/{{$paste->url}} </a>
+            <a href="{{ route('pastes_show', ['url' => $paste->url])}}"> pastes/{{$paste->url}} </a>
         </div>
     @endforeach
         {{$userPastes->links('vendor.pagination.default')}}

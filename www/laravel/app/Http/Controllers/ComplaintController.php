@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\DTO\ComplaintDTO;
 use App\Http\Requests\Paste\ComplaintsRequest;
-use App\Services\ComplaintService;
+use App\Services\interfaces\ComplaintServiceInterface;
 use Illuminate\Http\RedirectResponse;
 
 final class ComplaintController extends Controller
 {
-    protected ComplaintService $complaintService;
-
-    public function __construct(ComplaintService $complaintService)
-    {
-        $this->complaintService = $complaintService;
-    }
+    /**
+     * @param ComplaintServiceInterface $complaintService
+     */
+    public function __construct(
+       protected ComplaintServiceInterface $complaintService
+    )
+    {}
 
     /**
      * Обрабатывает формы жалобы.
@@ -25,7 +27,11 @@ final class ComplaintController extends Controller
     {
         $data = $request->validated();
 
-        $this->complaintService->makeComplaint($data);
+        $complaintDTO = new ComplaintDTO(
+            ...$data
+        );
+
+        $this->complaintService->makeComplaint($complaintDTO, auth()->id());
 
         return redirect()->back();
     }

@@ -51,7 +51,7 @@
             <ul>
                 @foreach($latestPastes as $paste)
                     <li>
-                        <a href="{{ route('pastes_show', ['url' => $paste->url])}}"> my-awesome-pastebin.tld/{{$paste->url}} </a>
+                        <a href="{{ route('pastes_show', ['url' => $paste->url])}}">  paste/{{$paste->url}}  </a>
                     </li>
                 @endforeach
             </ul>
@@ -63,7 +63,7 @@
                 <ul>
                     @foreach($userPastes as $paste)
                         <li>
-                            <a href="{{ route('pastes_show', ['url' => $paste->url])}}"> my-awesome-pastebin.tld/{{$paste->url}} </a>
+                            <a href="{{ route('pastes_show', ['url' => $paste->url])}}">  paste/{{$paste->url}}  </a>
                         </li>
                     @endforeach
                 </ul>
@@ -83,11 +83,6 @@
     nav {
         padding: 10px 0 10px 0;
         border: solid black 1px;
-    }
-
-    .nav-list {
-        display: flex;
-        justify-content: space-between;
     }
 
     ul {

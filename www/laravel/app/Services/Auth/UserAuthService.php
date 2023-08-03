@@ -2,21 +2,23 @@
 
 namespace App\Services\Auth;
 
+use App\DTO\Auth\AuthDTO;
 use App\Models\User;
+use App\Services\interfaces\Auth\UserAuthServiceInterface;
 use Illuminate\Support\Facades\Hash;
 
-final class UserAuthService
+final class UserAuthService implements UserAuthServiceInterface
 {
     /**
      * Авторизация пользователя
      *
-     * @param object $data
+     * @param AuthDTO $authDTO
      * @return string|null
      */
-    public function login(object $data):?string
+    public function login(AuthDTO $authDTO):?string
     {
         $accessToken = null;
-        if (auth()->attempt(['name' => $data['name'], 'password' => $data['password']])) {
+        if (auth()->attempt(['name' => $authDTO->getName(), 'password' => $authDTO->getPassword()])) {
             $accessToken = auth()->user()->createToken('authToken')->accessToken;
         }
         return $accessToken;
@@ -25,14 +27,16 @@ final class UserAuthService
     /**
      * Регистрация пользователя
      *
-     * @param object $data
+     * @param AuthDTO $authDTO
      * @return User
      */
-    public function register(object $data):User{
-
-        $data['password'] = Hash::make($data['password']);
+    public function register(AuthDTO $authDTO): User
+    {
+        $data = [
+            'name' => $authDTO->getName(),
+            'password' => Hash::make($authDTO->getPassword()),
+        ];
 
         return User::create($data);
-
     }
 }

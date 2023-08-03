@@ -4,6 +4,8 @@ namespace App\Http\Requests\Paste;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Enums\PasteAccesses;
+use Illuminate\Validation\Rule;
 
 final class PasteCreateRequest extends FormRequest
 {
@@ -22,10 +24,16 @@ final class PasteCreateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $accessValues = [
+            PasteAccesses::UNLISTED->value,
+            PasteAccesses::PRIVATE->value,
+            PasteAccesses::PUBLIC->value,
+        ];
+
         return [
             'title' => 'required|string',
             'text' => 'required|string',
-            'access' => 'required|in:public,unlisted,private',
+            'access' => ['required', Rule::in($accessValues)],
             'expires' => 'required|string',
             'language' => 'required|string',
         ];

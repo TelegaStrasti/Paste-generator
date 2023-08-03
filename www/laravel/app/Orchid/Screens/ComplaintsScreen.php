@@ -10,12 +10,13 @@ use Orchid\Screen\Screen;
 
 class ComplaintsScreen extends Screen
 {
-    protected ComplaintsRepositoryInterface $complaintsRepository;
-
-    public function __construct(ComplaintsRepositoryInterface $complaintsRepository)
-    {
-        $this->complaintsRepository = $complaintsRepository;
-    }
+    /**
+     * @param ComplaintsRepositoryInterface $complaintsRepository
+     */
+    public function __construct(
+        protected ComplaintsRepositoryInterface $complaintsRepository
+    )
+    {}
 
 
     /**

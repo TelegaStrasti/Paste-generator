@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\DTO\Auth\AuthDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
-use App\Services\Auth\UserAuthService;
+use App\Services\interfaces\Auth\UserAuthServiceInterface;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
@@ -14,17 +15,12 @@ use Illuminate\Contracts\View\View;
 final class UserAuthController extends Controller
 {
     /**
-     * @var UserAuthService
+     * @param UserAuthServiceInterface  $userAuthService
      */
-    protected UserAuthService $userAuthService;
-
-    /**
-     * @param UserAuthService $userAuthService
-     */
-    public function __construct(UserAuthService $userAuthService)
-    {
-        $this->userAuthService = $userAuthService;
-    }
+    public function __construct(
+        protected UserAuthServiceInterface $userAuthService
+    )
+    {}
 
     /**
      * Возвращает форму авторизации
@@ -46,7 +42,11 @@ final class UserAuthController extends Controller
     {
         $data = $request->validated();
 
-        $this->userAuthService->login($data);
+        $loginDTO = new AuthDTO(
+            ...$data
+        );
+
+        $this->userAuthService->login($loginDTO);
 
         return redirect('/');
     }
@@ -71,7 +71,11 @@ final class UserAuthController extends Controller
     {
         $data = $request->validated();
 
-        $this->userAuthService->register($data);
+        $authDTO = new AuthDTO(
+            ...$data
+        );
+
+        $this->userAuthService->register($authDTO);
 
         return redirect('/')->with('success', 'Вы успешно зарегистрировались!');
     }

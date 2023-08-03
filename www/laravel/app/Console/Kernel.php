@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('delete:expiredpastes')->daily();
+        $schedule->command('app:delete-expired-pastes')->daily();
     }
 
     /**

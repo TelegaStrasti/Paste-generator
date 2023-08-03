@@ -48,5 +48,5 @@ Route::prefix('pastes')->group(function () {
     Route::post('/', [PasteController::class, 'store'])->name('pastes_store');
 });
 
-Route::get('my-awesome-pastebin.tld/{url}', [PasteController::class, 'show'])->name('pastes_show');
+Route::get('paste/{url}', [PasteController::class, 'show'])->name('pastes_show');
 

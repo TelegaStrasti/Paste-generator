@@ -7,12 +7,11 @@ use Illuminate\Contracts\View\View;
 
 final class UserController extends Controller
 {
-    protected UserRepositoryInterface $userRepository;
 
-    public function __construct(UserRepositoryInterface $userRepository)
-    {
-        $this->userRepository = $userRepository;
-    }
+    public function __construct(
+        protected UserRepositoryInterface $userRepository
+    )
+    {}
 
     /**
      * Получает список паст пользователя.

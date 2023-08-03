@@ -3,13 +3,14 @@
 namespace App\Services\Auth;
 
 use App\Models\User;
+use App\Services\interfaces\Auth\GoogleAuthServiceInterface;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
-final class GoogleAuthService
+final class GoogleAuthService implements  GoogleAuthServiceInterface
 {
     /**
      * Логика аутентификации.

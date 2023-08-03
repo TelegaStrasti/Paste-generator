@@ -6,31 +6,21 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Paste\PasteCreateRequest;
 use App\Http\Resources\Api\PasteResource;
 use App\Repositories\Interfaces\PasteRepositoryInterface;
-use App\Services\PasteService;
+use App\Services\interfaces\PasteServiceInterface;
 use Illuminate\Http\JsonResponse;
 
 final class PasteController extends Controller
 {
     /**
-     * @var PasteService
-     */
-    protected PasteService $pasteService;
-
-    /**
-     * @var PasteRepositoryInterface
-     */
-    protected PasteRepositoryInterface $pasteRepository;
-
-    /**
      *
-     * @param PasteService $pasteService
+     * @param PasteServiceInterface $pasteService
      * @param PasteRepositoryInterface $pasteRepository
      */
-    public function __construct(PasteService $pasteService, PasteRepositoryInterface $pasteRepository)
-    {
-        $this->pasteService = $pasteService;
-        $this->pasteRepository = $pasteRepository;
-    }
+    public function __construct(
+        protected PasteServiceInterface $pasteService,
+        protected PasteRepositoryInterface $pasteRepository
+    )
+    {}
 
     /**
      * Создание пасты
@@ -42,7 +32,7 @@ final class PasteController extends Controller
     {
         $data = $request->validated();
 
-        $result = $this->pasteService->store($data);
+        $result = $this->pasteService->store($data, auth()->id());
 
         return response()->json(PasteResource::make($result));
     }

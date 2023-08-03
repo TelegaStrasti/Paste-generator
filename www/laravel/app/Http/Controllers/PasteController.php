@@ -2,33 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\DTO\PasteDTO;
 use App\Http\Requests\Paste\PasteCreateRequest;
 use App\Repositories\Interfaces\PasteRepositoryInterface;
-use App\Services\PasteService;
+use App\Services\interfaces\PasteServiceInterface;
 use Illuminate\Contracts\View\View;
 
 final class PasteController extends Controller
 {
     /**
-     * @var PasteService
-     */
-    protected PasteService $pasteService;
-
-    /**
-     * @var PasteRepositoryInterface
-     */
-    protected PasteRepositoryInterface $pasteRepository;
-
-    /**
      *
-     * @param PasteService $pasteService
+     * @param PasteServiceInterface $pasteService
      * @param PasteRepositoryInterface $pasteRepository
      */
-    public function __construct(PasteService $pasteService, PasteRepositoryInterface $pasteRepository)
-    {
-        $this->pasteService = $pasteService;
-        $this->pasteRepository = $pasteRepository;
-    }
+    public function __construct(
+        protected PasteServiceInterface $pasteService,
+        protected PasteRepositoryInterface $pasteRepository
+    )
+    {}
 
     /**
      * Форма создания новой пасты.
@@ -50,7 +41,11 @@ final class PasteController extends Controller
     {
         $data = $request->validated();
 
-        $this->pasteService->store($data);
+        $pasteDTO = new PasteDTO(
+            ...$data
+        );
+
+        $this->pasteService->store($pasteDTO, auth()->id());
 
         return view('paste.create');
     }

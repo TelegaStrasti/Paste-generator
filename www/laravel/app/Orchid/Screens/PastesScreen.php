@@ -4,20 +4,22 @@ namespace App\Orchid\Screens;
 
 use App\Orchid\Layouts\Paste\PastesListLayout;
 use App\Repositories\Interfaces\PasteRepositoryInterface;
-use App\Services\PasteService;
+use App\Services\interfaces\PasteServiceInterface;
 use Illuminate\Http\Request;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Toast;
 
 class PastesScreen extends Screen
 {
-    protected PasteRepositoryInterface $pasteRepository;
-    protected PasteService $pasteService;
-    public function __construct(PasteRepositoryInterface $pasteRepository, PasteService $pasteService)
-    {
-        $this->pasteRepository = $pasteRepository;
-        $this->pasteService = $pasteService;
-    }
+    /**
+     * @param PasteRepositoryInterface $pasteRepository
+     * @param PasteServiceInterface $pasteService
+     */
+    public function __construct(
+        protected PasteRepositoryInterface $pasteRepository,
+        protected PasteServiceInterface $pasteService
+    )
+    {}
 
     /**
      * Fetch data to be displayed on the screen.

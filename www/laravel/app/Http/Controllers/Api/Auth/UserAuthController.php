@@ -6,23 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\Api\Auth\AuthResource;
-use App\Services\Auth\UserAuthService;
+use App\Services\interfaces\Auth\UserAuthServiceInterface;
 use Illuminate\Http\JsonResponse;
 
 final class UserAuthController extends Controller
 {
     /**
-     * @var UserAuthService
+     * @param UserAuthServiceInterface $userAuthService
      */
-    protected UserAuthService $userAuthService;
-
-    /**
-     * @param UserAuthService $userAuthService
-     */
-    public function __construct(UserAuthService $userAuthService)
-    {
-        $this->userAuthService = $userAuthService;
-    }
+    public function __construct(
+        protected UserAuthServiceInterface $userAuthService
+    )
+    {}
 
     /**
      * Логика авторизации

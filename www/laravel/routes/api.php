@@ -27,7 +27,7 @@ Route::prefix('pastes')->group(function () {
     Route::post('/store', [PasteController::class, 'store']);
 });
 
-Route::get('my-awesome-pastebin.tld/{url}', [PasteController::class, 'show']);
+Route::get('paste/{url}', [PasteController::class, 'show']);
 
 Route::prefix('auth')->group(function () {
     Route::get('google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);

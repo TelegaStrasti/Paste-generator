@@ -5,7 +5,6 @@ namespace App\Repositories;
 use App\Models\Paste;
 use App\Repositories\Interfaces\PasteBlocksRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Auth;
 
 class PasteBlocksRepository implements PasteBlocksRepositoryInterface
 {
@@ -25,17 +24,17 @@ class PasteBlocksRepository implements PasteBlocksRepositoryInterface
     }
 
     /**
-     * Получить последние пасты текущего пользователя
+     * Получить последние текущего пасты юзера
      *
+     * @param int $userId
      * @return Collection
      */
-    public function getLatestUserPastes(): Collection
+    public function getLatestUserPastes(int $userId): Collection
     {
-        $user = Auth::id();
         return Paste::query()
             ->latest()
             ->active()
-            ->where('user_id', $user)
+            ->where('user_id', $userId)
             ->take(10)
             ->get();
     }

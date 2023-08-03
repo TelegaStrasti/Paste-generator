@@ -2,35 +2,38 @@
 
 namespace App\Services;
 
+use App\DTO\PasteDTO;
 use App\Models\Paste;
+use App\Services\interfaces\PasteServiceInterface;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-final class PasteService
+final class PasteService implements PasteServiceInterface
 {
     /**
      * Создание новой пасты.
      *
-     * @param array $data
+     * @param PasteDTO $pasteDTO
+     * @param int $userId
      * @return Paste
      */
-    public function store(array $data): Paste
+    public function store(PasteDTO $pasteDTO, int $userId): Paste
     {
         $expiresAt = null;
 
-        if ($data['expires'] !== "none") {
-            $expiresAt = Carbon::now()->{$data['expires']}();
+        if ($pasteDTO->getExpires() !== "none") {
+            $expiresAt = Carbon::now()->{$pasteDTO->getExpires()}();
         }
 
         $newPasteData = [
-            'title' => $data['title'],
-            'text' => $data['text'],
+            'title' => $pasteDTO->getTitle(),
+            'text' => $pasteDTO->getText(),
             'url' => Str::random(12),
-            'access' => $data['access'],
+            'access' => $pasteDTO->getAccess(),
             'expires_at' => $expiresAt,
-            'user_id' => Auth::id(),
-            'language' => $data['language'],
+            'user_id' => $userId,
+            'language' => $pasteDTO->getLanguage(),
         ];
 
         return Paste::create($newPasteData);
@@ -42,7 +45,7 @@ final class PasteService
      * @param Paste $paste
      * @return void
      */
-    public function destroy(Paste $paste)
+    public function destroy(Paste $paste): void
     {
         $paste->delete();
     }
