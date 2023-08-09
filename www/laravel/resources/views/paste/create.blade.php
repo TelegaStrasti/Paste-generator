@@ -30,9 +30,8 @@
         <label for="expires">Срок жизни пасты:</label>
         <select name="expires" id="expires">
             <option value="none">без ограничения</option>
-            <option value="addMinutes">10 минут</option>
+            <option value="addMinutes">1 минута</option>
             <option value="addHour">1 час</option>
-            <option value="addHours">3 часа</option>
             <option value="addDay">1 день</option>
             <option value="addWeek">1 неделя</option>
             <option value="addMonth">1 месяц</option>

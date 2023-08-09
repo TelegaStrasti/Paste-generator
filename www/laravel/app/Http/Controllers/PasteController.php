@@ -6,6 +6,7 @@ use App\DTO\PasteDTO;
 use App\Http\Requests\Paste\PasteCreateRequest;
 use App\Repositories\Interfaces\PasteRepositoryInterface;
 use App\Services\interfaces\PasteServiceInterface;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\View;
 
 final class PasteController extends Controller
@@ -55,12 +56,13 @@ final class PasteController extends Controller
      *
      * @param string $url
      * @return View
+     * @throws AuthorizationException
      */
     public function show(string $url): View
     {
         $paste = $this->pasteRepository->getPaste($url);
 
-        $paste->hasAccess($paste->url);
+        $this->authorize('view', $paste);
 
         return view('paste.show', compact('paste'));
     }

@@ -11,9 +11,9 @@ interface GoogleAuthRepositoryInterface
      * Найти пользователя по данным Google.
      *
      * @param object $user
-     * @return Builder|Model
+     * @return Builder|Model|null
      */
-    public function findUser(object $user): Builder|Model;
+    public function findUser(object $user): Builder|Model|null;
 
     /**
      * Получить аутентифицированного пользователя Google.

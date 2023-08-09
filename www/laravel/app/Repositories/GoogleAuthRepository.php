@@ -14,9 +14,9 @@ final class GoogleAuthRepository implements GoogleAuthRepositoryInterface
      * Получить юзера по Google ID.
      *
      * @param object $user
-     * @return Builder|Model
+     * @return Builder|Model|null
      */
-    public function findUser(object $user): Builder|Model
+    public function findUser(object $user): Builder|Model|null
     {
         return User::query()
             ->where('google_id', $user->id)

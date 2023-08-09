@@ -8,20 +8,18 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
-use Laravel\Socialite\Facades\Socialite;
 
 final class GoogleAuthService implements  GoogleAuthServiceInterface
 {
     /**
      * Логика аутентификации.
      *
+     * @param $user
+     * @param $findUser
      * @return Application|RedirectResponse|Redirector|null
      */
-    public function handleGoogleCallback(): Application|RedirectResponse|Redirector|null
+    public function handleGoogleCallback($user, $findUser): Application|RedirectResponse|Redirector|null
     {
-        $user = Socialite::driver('google')->user();
-        $findUser = User::where('google_id', $user->id)->first();
-
         if ($findUser) {
             Auth::login($findUser);
         } else {

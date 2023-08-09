@@ -26,10 +26,10 @@ class PasteBlocksRepository implements PasteBlocksRepositoryInterface
     /**
      * Получить последние текущего пасты юзера
      *
-     * @param int $userId
+     * @param int|null $userId
      * @return Collection
      */
-    public function getLatestUserPastes(int $userId): Collection
+    public function getLatestUserPastes(null|int $userId): Collection
     {
         return Paste::query()
             ->latest()

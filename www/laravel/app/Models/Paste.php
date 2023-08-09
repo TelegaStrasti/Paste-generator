@@ -69,19 +69,4 @@ class Paste extends Model
         return $query->where('expires_at', '>', Carbon::now())
             ->orWhereNull('expires_at');
     }
-
-    /**
-    * Проверяет доступ пользователя к пасте.
-    * @param string|null $url
-    * @return bool
-     */
-    public function hasAccess(string $url = null): bool
-    {
-        $user = Auth::id();
-        $access = $this->access;
-
-        return $access === PasteAccesses::PUBLIC->value
-            || ($user && $access === PasteAccesses::PRIVATE->value && $this->user_id === $user)
-            || ($access === PasteAccesses::UNLISTED->value && $this->url === $url);
-    }
 }

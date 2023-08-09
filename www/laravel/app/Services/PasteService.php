@@ -6,7 +6,6 @@ use App\DTO\PasteDTO;
 use App\Models\Paste;
 use App\Services\interfaces\PasteServiceInterface;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 final class PasteService implements PasteServiceInterface
@@ -15,10 +14,10 @@ final class PasteService implements PasteServiceInterface
      * Создание новой пасты.
      *
      * @param PasteDTO $pasteDTO
-     * @param int $userId
+     * @param int|null $userId
      * @return Paste
      */
-    public function store(PasteDTO $pasteDTO, int $userId): Paste
+    public function store(PasteDTO $pasteDTO, null|int $userId): Paste
     {
         $expiresAt = null;
 
